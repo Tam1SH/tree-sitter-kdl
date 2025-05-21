@@ -7,9 +7,6 @@
  */
 
 // deno-lint-ignore-file no-control-regex
-/* eslint-disable arrow-parens */
-/* eslint-disable camelcase */
-/* eslint-disable-next-line spaced-comment */
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
