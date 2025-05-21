@@ -1,6 +1,11 @@
 #include "tree_sitter/parser.h"
-#include "wctype.h"
-#include <ctype.h>
+
+#ifdef _MSC_VER
+#pragma warning(disable : 4100)
+#elif defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
 
 enum { _EOF, MULTI_LINE_COMMENT, _RAW_STRING };
 
@@ -119,3 +124,9 @@ bool tree_sitter_kdl_external_scanner_scan(void *payload, TSLexer *lexer, const 
 
     return false;
 }
+
+#ifdef _MSC_VER
+#pragma warning(default : 4100)
+#elif defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
