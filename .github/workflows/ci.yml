@@ -37,6 +37,7 @@ jobs:
       - name: Run parser and binding tests
         uses: tree-sitter/parser-test-action@v2
         with:
+          generate: false
           test-rust: true
       - name: Parse sample files
         uses: tree-sitter/parse-action@v4
