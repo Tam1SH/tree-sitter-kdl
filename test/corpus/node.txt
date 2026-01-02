@@ -75,14 +75,15 @@ node "a\"b"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)))))))
+              (string_fragment)
+              (escape)
+              (string_fragment))))))
 
 ==================
 Test Arg Null Type
 ==================
 
-node (type)null
+node (type)#null
 
 ---
 
@@ -143,7 +144,7 @@ node "arg" "arg"
 Test Arg False Type
 ===================
 
-node (type)false
+node (type)#false
 
 ---
 
@@ -161,7 +162,7 @@ node (type)false
 Test Arg True Type
 ==================
 
-node (type)true
+node (type)#true
 
 ---
 
@@ -217,8 +218,8 @@ node "\\n"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)))))))
+              (escape)
+              (string_fragment))))))
 
 ========================
 Test Preserve Node Order
@@ -269,7 +270,7 @@ Test Empty Quoted Node Id
 Test Boolean Prop
 =================
 
-node prop1=true prop2=false
+node prop1=#true prop2=#false
 
 ---
 
@@ -381,21 +382,6 @@ node key=(type)"str"
               (string
                 (string_fragment)))))))
 
-=============================
-Test Unusual Chars In Bare Id
-=============================
-
-foo123~!@#$%^&*.:'|?+ "weeee"
-
----
-
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
 
 =================
 Test Just Newline
@@ -439,22 +425,6 @@ node prop=10.0
               (number
                 (decimal)))))))
 
-=======================================
-Test Unusual Bare Id Chars In Quoted Id
-=======================================
-
-foo123~!@#$%^&*.:'|?+ "weeee"
-
----
-
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
-
 ======================
 Test Only Line Comment
 ======================
@@ -469,7 +439,7 @@ Test Only Line Comment
 Test Null Prop
 ==============
 
-node prop=null
+node prop=#null
 
 ---
 
@@ -500,8 +470,8 @@ node "arg" "arg2\n"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)))))))
+              (string_fragment)
+              (escape))))))
 
 ===========================
 Test Only Line Comment Crlf
@@ -555,8 +525,9 @@ node "hello\nworld"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)))))))
+              (string_fragment)
+              (escape)
+              (string_fragment))))))
 
 ====================
 Test All Node Fields
@@ -722,14 +693,13 @@ node "\""
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)))))))
+              (escape))))))
 
 ==============
 Test Prop Type
 ==============
 
-node key=(type)true
+node key=(type)#true
 
 ---
 
@@ -836,7 +806,7 @@ node prop=11
 Test Raw Prop Type
 ==================
 
-node key=(type)true
+node key=(type)#true
 
 ---
 
@@ -1016,8 +986,9 @@ node_3 prop="#\"arg\"#\\n"
             (identifier)
             (value
               (string
-                (string_fragment
-                  (escape)))))))
+                (string_fragment)
+                (escape)
+                (string_fragment))))))
       (node
         (identifier)
         (node_field
@@ -1025,10 +996,11 @@ node_3 prop="#\"arg\"#\\n"
             (identifier)
             (value
               (string
-                (string_fragment
-                  (escape)
-                  (escape)
-                  (escape)))))))
+                (escape)
+                (string_fragment)
+                (escape)
+                (escape)
+                (string_fragment))))))
       (node
         (identifier)
         (node_field
@@ -1036,10 +1008,13 @@ node_3 prop="#\"arg\"#\\n"
             (identifier)
             (value
               (string
-                (string_fragment
-                  (escape)
-                  (escape)
-                  (escape))))))))
+                (string_fragment)
+                (escape)
+                (string_fragment)
+                (escape)
+                (string_fragment)
+                (escape)
+                (string_fragment)))))))
 
 ============
 Test Only Cr
@@ -1071,7 +1046,7 @@ Test Quoted Node Type
 Test Node False
 ===============
 
-node false
+node #false
 
 ---
 
@@ -1197,7 +1172,7 @@ Test Block Comment Newline
 Test Blank Prop Type
 ====================
 
-node key=("")true
+node key=("")#true
 
 ---
 
@@ -1288,15 +1263,16 @@ node "\"#\"##"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)))))))
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment))))))
 
 ================
 Test Boolean Arg
 ================
 
-node false true
+node #false #true
 
 ---
 
@@ -1478,8 +1454,7 @@ Test Escaped String Just Backslash
       (node
         (identifier
           (string
-            (string_fragment
-              (escape))))))
+            (escape)))))
 
 ===================
 Test Commented Prop
@@ -1516,7 +1491,7 @@ node2
 Test Null Arg
 =============
 
-node null
+node #null
 
 ---
 
@@ -1556,10 +1531,11 @@ node "\nhello\nworld\n"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)
-                (escape)))))))
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape))))))
 
 ==========================
 Test Empty Child Same Line
@@ -1638,8 +1614,9 @@ node "hello\nworld"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)))))))
+              (string_fragment)
+              (escape)
+              (string_fragment))))))
 
 ===========
 Test Binary
@@ -1670,14 +1647,14 @@ node "\"\\/\b\f\n\r\t"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)
-                (escape)
-                (escape)
-                (escape)
-                (escape)
-                (escape)))))))
+              (escape)
+              (escape)
+              (string_fragment)
+              (escape)
+              (escape)
+              (escape)
+              (escape)
+              (escape))))))
 
 ====================
 Test Arg String Type
@@ -1751,7 +1728,7 @@ node 83
 Test Prop False Type
 ====================
 
-node key=(type)false
+node key=(type)#false
 
 ---
 
@@ -1798,26 +1775,32 @@ node_3 "#\"arg\\n\"#and stuff"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape))))))
+            (string_fragment)
+              (escape)
+              (string_fragment)))))
       (node
         (identifier)
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)
-                (escape))))))
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment)))))
       (node
         (identifier)
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)
-                (escape)))))))
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment))))))
 
 ================================
 Test Empty Child Different Lines
@@ -1868,7 +1851,7 @@ node ("")10
 Test Parse All Arg Types
 ========================
 
-node 1 1.0 1.0E+10 1.0E-10 1 7 2 "arg" "arg\\\\" true false null
+node 1 1.0 1.0E+10 1.0E-10 1 7 2 "arg" "arg\\\\" #true #false #null
 
 ---
 
@@ -1908,9 +1891,9 @@ node 1 1.0 1.0E+10 1.0E-10 1 7 2 "arg" "arg\\\\" true false null
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)))))
+              (string_fragment)
+              (escape)
+              (escape))))
         (node_field
           (value
             (keyword
@@ -2004,7 +1987,7 @@ node 10
 Test Quoted Prop Type
 =====================
 
-node key=("type/")true
+node key=("type/")#true
 
 ---
 
@@ -2064,7 +2047,7 @@ node1 {
 Test Node True
 ==============
 
-node true
+node #true
 
 ---
 
@@ -2238,10 +2221,12 @@ node " hey\neveryone\nhow goes?\n"
         (node_field
           (value
             (string
-              (string_fragment
-                (escape)
-                (escape)
-                (escape)))))))
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape))))))
 
 =================
 Test Negative Int
@@ -2470,7 +2455,7 @@ node
 Test Prop Null Type
 ===================
 
-node key=(type)null
+node key=(type)#null
 
 ---
 
@@ -2542,7 +2527,7 @@ node 1E+10
 Test Raw Arg Type
 =================
 
-node (type)true
+node (type)#true
 
 ---
 
@@ -2637,8 +2622,8 @@ Test Raw Node Name
       (node
         (identifier
           (string
-            (string_fragment
-              (escape))))))
+            (escape)
+            (string_fragment)))))
 
 ========================
 Test Hex Int Underscores
@@ -2748,7 +2733,7 @@ node
 Test Prop True Type
 ===================
 
-node key=(type)true
+node key=(type)#true
 
 ---
 
@@ -2785,7 +2770,7 @@ node {
 Test Empty Raw String Arg Single Hash
 =====================================
 
-node r#""#
+node #""#
 
 ---
 
@@ -2800,7 +2785,7 @@ node r#""#
 Test Empty Raw String Arg Many Hashes
 =====================================
 
-node r####""####
+node ####""####
 
 ---
 
@@ -2815,7 +2800,7 @@ node r####""####
 Test Empty Raw String Arg With Partial Terminator
 =================================================
 
-node r####""###"####
+node ####""###"####
 
 ---
 
@@ -2826,14 +2811,119 @@ node r####""###"####
           (value
             (string)))))
 
-====================================================
-Test Incomplete Raw String Opener As Node Identifier
-====================================================
+============================
+Test KDL Version 1 Directive
+============================
 
-r####
+/- kdl-version 1
+node
+
+---
+
+    (document
+      (version)
+      (node
+        (identifier)))
+
+============================
+Test KDL Version 2 Directive
+============================
+
+/- kdl-version 2
+node
+
+---
+
+    (document
+      (version)
+      (node
+        (identifier)))
+===============================
+Test KDL Version With Properties
+===============================
+
+/- kdl-version 2
+node key="value"
+
+---
+
+    (document
+      (version)
+      (node
+        (identifier)
+        (node_field
+          (prop
+            (identifier)
+            (value
+              (string
+                (string_fragment)))))))
+
+============================
+Test empty string identifier in property
+============================
+
+node ""=empty
 
 ---
 
     (document
       (node
-        (identifier)))
+        (identifier)
+        (node_field
+          (prop
+            (identifier
+              (string))
+            (value)))))
+
+============================
+Test property with comments around equals
+============================
+
+node "" /**/ = /**/ ""
+
+---
+
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
+        (identifier 
+          (string))
+        (multi_line_comment)
+        (value
+          (multi_line_comment)
+          (string))))))
+
+============================
+Test complex type, prop and value with comments and esclines
+============================
+(\
+tag  )\
+/*
+
+*/    node prop  /*
+
+*/\
+ = (\
+tag  )\ // comment
+/*
+
+*/    value
+
+---
+    (document
+      (node
+        (type
+          (identifier))
+        (multi_line_comment)
+        (identifier)
+        (node_field
+          (prop
+            (identifier)
+            (multi_line_comment)
+            (value
+              (type
+                (identifier))
+              (single_line_comment)
+              (multi_line_comment))))))

@@ -22,8 +22,7 @@ bool tree_sitter_kdl_external_scanner_scan(void *payload, TSLexer *lexer, const 
         return true;
     }
 
-    if (valid_symbols[_RAW_STRING] && lexer->lookahead == 'r') {
-        advance(lexer);
+    if (valid_symbols[_RAW_STRING] && lexer->lookahead == '#') {
 
         unsigned num_hashes = 0;
         while (lexer->lookahead == '#') {

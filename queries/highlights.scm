@@ -14,12 +14,6 @@
 
 (identifier) @variable
 
-; Operators
-[
- "="
- "+"
- "-"
-] @operator
 
 ; Literals
 
@@ -34,7 +28,7 @@
 
 (boolean) @boolean
 
-"null" @constant.builtin
+"#null" @constant.builtin
 
 ; Punctuation
 

@@ -1,3 +1,5 @@
-string "my
-multiline
-value"
+string """
+  my
+    multiline
+  value
+  """

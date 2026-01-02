@@ -1,2 +1,3 @@
-node "this\nhas\tescapes"
-other r"C:\Users\zkat\"
+node1 this-is-a-string
+node2 "this\nhas\tescapes"
+node3 #"C:\Users\zkat\raw\string"#

@@ -1,0 +1,7 @@
+!examples/kdljs/test/kdl/esc_unicode_too_long.kdl
+!examples/kdljs/test/kdl/esc_normal_illegal.kdl
+!examples/kdljs/test/kdl/esc_unicode_invalid.kdl
+!examples/kdljs/test/kdl/esc_unicode_empty.kdl
+!examples/kdljs/test/kdl/esc_unicode_incomplete.kdl
+examples/kdl/tests/benchmarks/html-standard-compact.kdl
+examples/kdl/tests/benchmarks/html-standard.kdl

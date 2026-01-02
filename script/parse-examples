@@ -4,6 +4,27 @@ set -eu
 
 cd "$(dirname "$0")/.."
 
+# Функция для измерения времени выполнения команды
+function time_command {
+    local start_time
+    local end_time
+    local duration
+    
+    start_time=$(date +%s.%N)
+    # Выполняем команду в подпроцессе, чтобы можно было убить её по таймауту
+    if ! eval "$@" >/dev/null 2>&1; then
+        end_time=$(date +%s.%N)
+        duration=$(echo "$end_time - $start_time" | bc)
+        echo "$duration:FAILED"
+        return 1
+    else
+        end_time=$(date +%s.%N)
+        duration=$(echo "$end_time - $start_time" | bc)
+        echo "$duration:OK"
+        return 0
+    fi
+}
+
 function clone_repo {
 	owner=$1
 	name=$2
@@ -25,26 +46,130 @@ function clone_repo {
 	popd >/dev/null
 }
 
-clone_repo kdl-org kdl 6feeccc491808fe0b5425a18aa7ab4a8ac435e55
-clone_repo kdl-org kdl-rs 8c028e5ea189470f07c5c848ab778f3d63ba89ab
-clone_repo kdl-org kdljs bb874a595e6f712950795ecaad62f24fd945f03d
-clone_repo kdl-org kdl-php 390fdc5ab8e2749feb01a113e8feb028de0861b3
+clone_repo kdl-org kdl d8faf225031fd96947781c1637b63a301e97604f
+clone_repo kdl-org kdl-rs 268f3a2d00d400877cc85530b85dbb145f0b2dfb
+clone_repo kdl-org kdljs e093f8c490794ff9678463ae9e379100b73a95d4
 
 known_failures="$(cat script/known_failures.txt)"
 
 # Remove input directories
 find examples -type d -name input -exec rm -rf {} +
 
-# shellcheck disable=2046
-tree-sitter parse -q \
-	'examples/**/*.kdl' \
-	$(for file in $known_failures; do echo "!${file}"; done)
+# Получаем список всех файлов
+files_array=()
+while IFS= read -r -d $'\0' file; do
+    files_array+=("$file")
+done < <(find examples -name "*.kdl" -print0)
+
+total_files=${#files_array[@]}
+current=0
+failed_files=()
+slow_files=() 
+echo "Found $total_files .kdl files to parse"
+echo "Parsing files..."
+echo "WARNING: Files taking >10s will be reported"
+
+for file in "${files_array[@]}"; do
+
+    skip=false
+    for failure in $known_failures; do
+        if [ "$file" = "${failure#!}" ]; then
+            skip=true
+            break
+        fi
+    done
+    
+    if [ "$skip" = false ]; then
+        current=$((current + 1))
+        
+		
+        if [ $total_files -gt 100 ] && [ $((current % 10)) -eq 0 ] || [ $total_files -le 100 ] || [ $current -eq $total_files ]; then
+            printf "\rProcessing: %d/%d (%.1f%%) - %s" \
+                "$current" "$total_files" \
+                "$(echo "scale=1; 100 * $current / $total_files" | bc)" \
+                "$(basename "$file")"
+        fi
+        
+		
+        start_time=$(date +%s.%N)
+        if timeout 30s tree-sitter parse -q "$file" >/dev/null 2>&1; then
+            end_time=$(date +%s.%N)
+            duration=$(echo "$end_time - $start_time" | bc | awk '{printf "%.2f", $0}')
+            
+			
+            if (( $(echo "$duration > 10" | bc -l) )); then
+                slow_files+=("$file: $duration сек")
+                printf "\rProcessing: %d/%d (%.1f%%) - %s - SLOW (%.2f сек)\n" \
+                    "$current" "$total_files" \
+                    "$(echo "scale=1; 100 * $current / $total_files" | bc)" \
+                    "$(basename "$file")" \
+                    "$duration"
+            fi
+        else
+		
+            end_time=$(date +%s.%N)
+            duration=$(echo "$end_time - $start_time" | bc | awk '{printf "%.2f", $0}')
+            
+            if (( $(echo "$duration >= 29.5" | bc -l) )); then
+			
+                failed_files+=("$file (timeout after ${duration} сек)")
+                slow_files+=("$file: TIMEOUT после ${duration} сек")
+                printf "\rProcessing: %d/%d (%.1f%%) - %s - TIMEOUT (%.2f сек)\n" \
+                    "$current" "$total_files" \
+                    "$(echo "scale=1; 100 * $current / $total_files" | bc)" \
+                    "$(basename "$file")" \
+                    "$duration"
+            else
+			
+                failed_files+=("$file")
+                printf "\rProcessing: %d/%d (%.1f%%) - %s - FAILED (%.2f сек)\n" \
+                    "$current" "$total_files" \
+                    "$(echo "scale=1; 100 * $current / $total_files" | bc)" \
+                    "$(basename "$file")" \
+                    "$duration"
+            fi
+        fi
+    else
+        current=$((current + 1))
+        printf "\rProcessing: %d/%d (%.1f%%) - %s - SKIPPED (known failure)\n" \
+            "$current" "$total_files" \
+            "$(echo "scale=1; 100 * $current / $total_files" | bc)" \
+            "$(basename "$file")"
+    fi
+done
+
+echo ""
+
+if [ ${#slow_files[@]} -gt 0 ]; then
+    echo ""
+    echo "⚠️  WARNING: ${#slow_files[@]} files took >10 seconds to parse:"
+    for slow_file in "${slow_files[@]}"; do
+        echo "  - $slow_file"
+    done
+    echo ""
+fi
+
+if [ ${#failed_files[@]} -gt 0 ]; then
+    echo ""
+    echo "Failed to parse ${#failed_files[@]} files:"
+    for failed_file in "${failed_files[@]}"; do
+        echo "  - $failed_file"
+    done
+    echo ""
+    echo "Consider adding these to script/known_failures.txt if they are expected failures"
+fi
 
 example_count=$(find examples -name "*.kdl" | wc -l)
 failure_count=$(wc -w <<<"$known_failures")
-success_count=$((example_count - failure_count))
-success_percent=$(bc -l <<<"100*${success_count}/${example_count}")
+actual_failures=$((failure_count + ${#failed_files[@]}))
+success_count=$((example_count - actual_failures))
+success_percent=$(echo "scale=1; 100 * $success_count / $example_count" | bc)
 
 printf \
 	"Successfully parsed %d of %d example files (%.1f%%)\n" \
 	"$success_count" "$example_count" "$success_percent"
+
+if [ ${#failed_files[@]} -gt 0 ]; then
+    echo "Error: ${#failed_files[@]} files failed to parse"
+    exit 1
+fi
