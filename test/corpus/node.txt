@@ -6,12 +6,13 @@ node ""
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string))))))
 
 ================
 Test Single Prop
@@ -21,15 +22,16 @@ node prop="val"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)))))))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ==============
 Test Node Type
@@ -39,11 +41,11 @@ Test Node Type
 
 ---
 
-    (document
-      (node
-        (type
-          (identifier))
-        (identifier)))
+(document
+  (node
+    (type
+      (identifier))
+    (identifier)))
 
 ==================
 Test Block Comment
@@ -53,13 +55,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =========================
 Test Escaped String Quote
@@ -69,15 +72,16 @@ node "a\"b"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape)
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)
+            (string_fragment)))))))
 
 ==================
 Test Arg Null Type
@@ -87,14 +91,14 @@ node (type)#null
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (keyword)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (keyword)))))
 
 =========================
 Test Semicolon Terminated
@@ -104,9 +108,9 @@ node1
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 =====================================
 Test Slashdash Arg Before Newline Esc
@@ -116,9 +120,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 =================
 Test Repeated Arg
@@ -128,17 +132,19 @@ node "arg" "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ===================
 Test Arg False Type
@@ -148,15 +154,15 @@ node (type)#false
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (keyword
-              (boolean))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (keyword
+          (boolean))))))
 
 ==================
 Test Arg True Type
@@ -166,15 +172,15 @@ node (type)#true
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (keyword
-              (boolean))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (keyword
+          (boolean))))))
 
 ===================
 Test Commented Node
@@ -184,9 +190,9 @@ node_2
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ============
 Test Escline
@@ -196,13 +202,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =============================
 Test Escaped String Backslash
@@ -212,14 +219,15 @@ node "\\n"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (escape)
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (escape)
+            (string_fragment)))))))
 
 ========================
 Test Preserve Node Order
@@ -231,13 +239,13 @@ node1
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 ========================
 Test Slashdash Only Node
@@ -247,7 +255,7 @@ Test Slashdash Only Node
 
 ---
 
-    (document)
+(document)
 
 =========================
 Test Empty Quoted Node Id
@@ -257,14 +265,15 @@ Test Empty Quoted Node Id
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier
+      (string))
+    (node_field
+      (value
         (identifier
-          (string))
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+          (string
+            (string_fragment)))))))
 
 =================
 Test Boolean Prop
@@ -274,21 +283,21 @@ node prop1=#true prop2=#false
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (keyword
-                (boolean)))))
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (keyword
-                (boolean)))))))
+        (value
+          (keyword
+            (boolean)))))
+    (node_field
+      (prop
+        (identifier)
+        (value
+          (keyword
+            (boolean)))))))
 
 ===========================
 Test Slashdash In Slashdash
@@ -298,9 +307,9 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ==============================
 Test Newlines In Block Comment
@@ -310,13 +319,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ===================================
 Test Slashdash Only Node With Space
@@ -326,7 +336,7 @@ Test Slashdash Only Node With Space
 
 ---
 
-    (document)
+(document)
 
 ===================
 Test Prop Zero Type
@@ -336,16 +346,16 @@ node key=(type)0
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (number))))))
+        (value
+          (type
+            (identifier))
+          (number))))))
 
 =============================
 Test Preserve Duplicate Nodes
@@ -356,11 +366,11 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 =====================
 Test Prop String Type
@@ -370,18 +380,18 @@ node key=(type)"str"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (string
-                (string_fragment)))))))
-
+        (value
+          (type
+            (identifier))
+          (identifier
+            (string
+              (string_fragment))))))))
 
 =================
 Test Just Newline
@@ -391,7 +401,7 @@ Test Just Newline
 
 ---
 
-    (document)
+(document)
 
 =====================
 Test Quoted Node Name
@@ -401,11 +411,11 @@ Test Quoted Node Name
 
 ---
 
-    (document
-      (node
-        (identifier
-          (string
-            (string_fragment)))))
+(document
+  (node
+    (identifier
+      (string
+        (string_fragment)))))
 
 =================
 Test Numeric Prop
@@ -415,15 +425,15 @@ node prop=10.0
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number
-                (decimal)))))))
+        (value
+          (number
+            (decimal)))))))
 
 ======================
 Test Only Line Comment
@@ -433,7 +443,7 @@ Test Only Line Comment
 
 ---
 
-    (document)
+(document)
 
 ==============
 Test Null Prop
@@ -443,14 +453,14 @@ node prop=#null
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (keyword))))))
+        (value
+          (keyword))))))
 
 =========================
 Test Escline Line Comment
@@ -460,18 +470,20 @@ node "arg" "arg2\n"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)))))))
 
 ===========================
 Test Only Line Comment Crlf
@@ -481,7 +493,7 @@ Test Only Line Comment Crlf
 
 ---
 
-    (document)
+(document)
 
 ==============
 Test Tab Space
@@ -491,9 +503,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ================
 Test Numeric Arg
@@ -503,13 +515,13 @@ node 15.7
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal))))))
 
 ==========================
 Test Esc Newline In String
@@ -519,15 +531,16 @@ node "hello\nworld"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape)
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)
+            (string_fragment)))))))
 
 ====================
 Test All Node Fields
@@ -539,12 +552,12 @@ node {
 
 ---
 
-    (document
+(document
+  (node
+    (identifier)
+    (node_children
       (node
-        (identifier)
-        (node_children
-          (node
-            (identifier)))))
+        (identifier)))))
 
 ============================
 Test Slashdash Node In Child
@@ -554,9 +567,9 @@ node1
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ==========
 Test Empty
@@ -566,7 +579,7 @@ Test Empty
 
 ---
 
-    (document)
+(document)
 
 =====================
 Test Hex Leading Zero
@@ -576,12 +589,12 @@ node 1
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ======================
 Test Positive Exponent
@@ -591,14 +604,14 @@ node 1.0E+10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal)
-              (exponent))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal)
+          (exponent))))))
 
 ============================
 Test Null Prefix In Prop Key
@@ -608,14 +621,14 @@ node null_id=1
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number))))))
+        (value
+          (number))))))
 
 ============================
 Test Int Multiple Underscore
@@ -625,12 +638,12 @@ node 1234
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ==============================
 Test Block Comment Before Node
@@ -640,9 +653,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 =================
 Test Escline Node
@@ -653,11 +666,11 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 =====================
 Test Quoted Prop Name
@@ -667,17 +680,18 @@ node "0prop"="val"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (prop
-            (identifier
-              (string
-                (string_fragment)))
-            (value
-              (string
-                (string_fragment)))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
+        (identifier
+          (string
+            (string_fragment)))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ==============================
 Test Escaped String Just Quote
@@ -687,13 +701,14 @@ node "\""
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (escape))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (escape)))))))
 
 ==============
 Test Prop Type
@@ -703,17 +718,17 @@ node key=(type)#true
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (keyword
-                (boolean)))))))
+        (value
+          (type
+            (identifier))
+          (keyword
+            (boolean)))))))
 
 ====================
 Test Blank Node Type
@@ -723,12 +738,12 @@ Test Blank Node Type
 
 ---
 
-    (document
-      (node
-        (type
-          (identifier
-            (string)))
-        (identifier)))
+(document
+  (node
+    (type
+      (identifier
+        (string)))
+    (identifier)))
 
 ==========
 Test Octal
@@ -738,12 +753,12 @@ node 16434824
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ===================
 Test Slashdash Prop
@@ -753,13 +768,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ====================
 Test Leading Newline
@@ -769,9 +785,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ===========================
 Test Slashdash Raw Prop Key
@@ -781,9 +797,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ==================
 Test Repeated Prop
@@ -793,14 +809,14 @@ node prop=11
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number))))))
+        (value
+          (number))))))
 
 ==================
 Test Raw Prop Type
@@ -810,17 +826,17 @@ node key=(type)#true
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (keyword
-                (boolean)))))))
+        (value
+          (type
+            (identifier))
+          (keyword
+            (boolean)))))))
 
 =====================
 Test Leading Zero Int
@@ -830,12 +846,12 @@ node 11
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ===================
 Test Commented Line
@@ -845,9 +861,9 @@ node_2
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ============================
 Test Slashdash Repeated Prop
@@ -857,15 +873,16 @@ node arg="correct"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)))))))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ========================
 Test Underscore In Octal
@@ -875,12 +892,12 @@ node 342391
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 =============
 Test Zero Int
@@ -890,12 +907,12 @@ node 0
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ================
 Test Empty Child
@@ -905,9 +922,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ===========================
 Test Null Prefix In Bare Id
@@ -917,9 +934,9 @@ null_id
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ===============================
 Test Binary Trailing Underscore
@@ -929,12 +946,12 @@ node 2
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ====================
 Test Commented Child
@@ -944,13 +961,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =============================
 Test Block Comment After Node
@@ -960,13 +978,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ========================
 Test Escaped String Prop
@@ -978,43 +997,46 @@ node_3 prop="#\"arg\"#\\n"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)
-                (escape)
-                (string_fragment))))))
-      (node
+        (value
+          (identifier
+            (string
+              (string_fragment)
+              (escape)
+              (string_fragment)))))))
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (escape)
-                (string_fragment)
-                (escape)
-                (escape)
-                (string_fragment))))))
-      (node
+        (value
+          (identifier
+            (string
+              (escape)
+              (string_fragment)
+              (escape)
+              (escape)
+              (string_fragment)))))))
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)
-                (escape)
-                (string_fragment)
-                (escape)
-                (string_fragment)
-                (escape)
-                (string_fragment)))))))
+        (value
+          (identifier
+            (string
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment)
+              (escape)
+              (string_fragment))))))))
 
 ============
 Test Only Cr
@@ -1024,7 +1046,7 @@ Test Only Cr
 
 ---
 
-    (document)
+(document)
 
 =====================
 Test Quoted Node Type
@@ -1034,13 +1056,13 @@ Test Quoted Node Type
 
 ---
 
-    (document
-      (node
-        (type
-          (identifier
-            (string
-              (string_fragment))))
-        (identifier)))
+(document
+  (node
+    (type
+      (identifier
+        (string
+          (string_fragment))))
+    (identifier)))
 
 ===============
 Test Node False
@@ -1050,13 +1072,13 @@ node #false
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (keyword
-              (boolean))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (keyword
+          (boolean))))))
 
 =======================
 Test Sci Notation Large
@@ -1066,16 +1088,16 @@ node prop=1.23E+1000
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number
-                (decimal)
-                (exponent)))))))
+        (value
+          (number
+            (decimal)
+            (exponent)))))))
 
 ==================
 Test Arg Zero Type
@@ -1085,14 +1107,14 @@ node (type)0
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (number)))))
 
 ===========================
 Test Empty Child Whitespace
@@ -1102,9 +1124,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ==============================
 Test Semicolon Separated Nodes
@@ -1115,11 +1137,11 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 =======================
 Test Semicolon In Child
@@ -1131,12 +1153,12 @@ node1 {
 
 ---
 
-    (document
+(document
+  (node
+    (identifier)
+    (node_children
       (node
-        (identifier)
-        (node_children
-          (node
-            (identifier)))))
+        (identifier)))))
 
 =============================
 Test Prop Escaped String Type
@@ -1146,17 +1168,18 @@ node key=(type)"str"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (string
-                (string_fragment)))))))
+        (value
+          (type
+            (identifier))
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ==========================
 Test Block Comment Newline
@@ -1166,7 +1189,7 @@ Test Block Comment Newline
 
 ---
 
-    (document)
+(document)
 
 ====================
 Test Blank Prop Type
@@ -1176,18 +1199,18 @@ node key=("")#true
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier
-                  (string)))
-              (keyword
-                (boolean)))))))
+        (value
+          (type
+            (identifier
+              (string)))
+          (keyword
+            (boolean)))))))
 
 ========================
 Test Slashdash Full Node
@@ -1197,7 +1220,7 @@ Test Slashdash Full Node
 
 ---
 
-    (document)
+(document)
 
 =============================
 Test False Prefix In Prop Key
@@ -1207,14 +1230,14 @@ node false_id=1
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number))))))
+        (value
+          (number))))))
 
 ======================
 Test Negative Exponent
@@ -1224,14 +1247,14 @@ node 1.0E-10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal)
-              (exponent))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal)
+          (exponent))))))
 
 ===============
 Test Single Arg
@@ -1241,13 +1264,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =================================
 Test Escaped String Multiple Hash
@@ -1257,16 +1281,17 @@ node "\"#\"##"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment)))))))
 
 ================
 Test Boolean Arg
@@ -1276,17 +1301,17 @@ node #false #true
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (keyword
-              (boolean))))
-        (node_field
-          (value
-            (keyword
-              (boolean))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (keyword
+          (boolean))))
+    (node_field
+      (value
+        (keyword
+          (boolean))))))
 
 ============================
 Test Arg Escaped String Type
@@ -1296,15 +1321,16 @@ node (type)"str"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ===================================
 Test Nested Multiline Block Comment
@@ -1314,13 +1340,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =================
 Test Positive Int
@@ -1330,12 +1357,12 @@ node 10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ====================
 Test Prop Float Type
@@ -1345,18 +1372,18 @@ node key=(type)2.5E+10
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (number
-                (decimal)
-                (exponent)))))))
+        (value
+          (type
+            (identifier))
+          (number
+            (decimal)
+            (exponent)))))))
 
 =============
 Test Arg Type
@@ -1366,15 +1393,16 @@ node (type)"arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ============================
 Test Trailing Underscore Hex
@@ -1384,12 +1412,12 @@ node 1194684
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 =========================
 Test Nested Block Comment
@@ -1399,13 +1427,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ====================
 Test Quoted Arg Type
@@ -1415,16 +1444,16 @@ node ("type/")10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier
-                (string
-                  (string_fragment))))
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier
+            (string
+              (string_fragment))))
+        (number)))))
 
 ====================
 Test Nested Comments
@@ -1434,13 +1463,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ==================================
 Test Escaped String Just Backslash
@@ -1450,11 +1480,11 @@ Test Escaped String Just Backslash
 
 ---
 
-    (document
-      (node
-        (identifier
-          (string
-            (escape)))))
+(document
+  (node
+    (identifier
+      (string
+        (escape)))))
 
 ===================
 Test Commented Prop
@@ -1464,13 +1494,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =======================
 Test Crlf Between Nodes
@@ -1481,11 +1512,11 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 =============
 Test Null Arg
@@ -1495,12 +1526,12 @@ node #null
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (keyword)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (keyword)))))
 
 =====================
 Test Leading Zero Oct
@@ -1510,12 +1541,12 @@ node 1
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ===========================
 Test Escaped String Newline
@@ -1525,17 +1556,18 @@ node "\nhello\nworld\n"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment)
-              (escape))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment)
+            (escape)))))))
 
 ==========================
 Test Empty Child Same Line
@@ -1545,9 +1577,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 =================
 Test Just Node Id
@@ -1557,9 +1589,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ==============
 Test Same Args
@@ -1569,17 +1601,19 @@ node "whee" "whee"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ==========================
 Test Empty Quoted Prop Key
@@ -1589,16 +1623,17 @@ node ""="empty"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (prop
-            (identifier
-              (string))
-            (value
-              (string
-                (string_fragment)))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
+        (identifier
+          (string))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ==========================
 Test Esc Unicode In String
@@ -1608,15 +1643,16 @@ node "hello\nworld"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape)
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)
+            (string_fragment)))))))
 
 ===========
 Test Binary
@@ -1626,12 +1662,12 @@ node 2
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ================
 Test All Escapes
@@ -1641,20 +1677,21 @@ node "\"\\/\b\f\n\r\t"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (escape)
-              (escape)
-              (string_fragment)
-              (escape)
-              (escape)
-              (escape)
-              (escape)
-              (escape))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (escape)
+            (escape)
+            (string_fragment)
+            (escape)
+            (escape)
+            (escape)
+            (escape)
+            (escape)))))))
 
 ====================
 Test Arg String Type
@@ -1664,15 +1701,16 @@ node (type)"str"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ===================
 Test Quoted Numeric
@@ -1682,15 +1720,16 @@ node prop="10.0"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)))))))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ===========================
 Test Underscore In Exponent
@@ -1700,14 +1739,14 @@ node 1.0E-100
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal)
-              (exponent))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal)
+          (exponent))))))
 
 ==============================
 Test Trailing Underscore Octal
@@ -1717,12 +1756,12 @@ node 83
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ====================
 Test Prop False Type
@@ -1732,17 +1771,17 @@ node key=(type)#false
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (keyword
-                (boolean)))))))
+        (value
+          (type
+            (identifier))
+          (keyword
+            (boolean)))))))
 
 ========================
 Test Leading Zero Binary
@@ -1752,12 +1791,12 @@ node 1
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 =======================
 Test Escaped String Arg
@@ -1769,38 +1808,41 @@ node_3 "#\"arg\\n\"#and stuff"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
             (string_fragment)
-              (escape)
-              (string_fragment)))))
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment)))))
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment))))))
+            (escape)
+            (string_fragment))))))
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment))))))
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment)))))))
 
 ================================
 Test Empty Child Different Lines
@@ -1810,9 +1852,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ======================
 Test Binary Underscore
@@ -1822,12 +1864,12 @@ node 2
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ===================
 Test Blank Arg Type
@@ -1837,15 +1879,15 @@ node ("")10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier
-                (string)))
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier
+            (string)))
+        (number)))))
 
 ========================
 Test Parse All Arg Types
@@ -1855,56 +1897,58 @@ node 1 1.0 1.0E+10 1.0E-10 1 7 2 "arg" "arg\\\\" #true #false #null
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))
-        (node_field
-          (value
-            (number
-              (decimal))))
-        (node_field
-          (value
-            (number
-              (decimal)
-              (exponent))))
-        (node_field
-          (value
-            (number
-              (decimal)
-              (exponent))))
-        (node_field
-          (value
-            (number)))
-        (node_field
-          (value
-            (number)))
-        (node_field
-          (value
-            (number)))
-        (node_field
-          (value
-            (string
-              (string_fragment))))
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape)
-              (escape))))
-        (node_field
-          (value
-            (keyword
-              (boolean))))
-        (node_field
-          (value
-            (keyword
-              (boolean))))
-        (node_field
-          (value
-            (keyword)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))
+    (node_field
+      (value
+        (number
+          (decimal))))
+    (node_field
+      (value
+        (number
+          (decimal)
+          (exponent))))
+    (node_field
+      (value
+        (number
+          (decimal)
+          (exponent))))
+    (node_field
+      (value
+        (number)))
+    (node_field
+      (value
+        (number)))
+    (node_field
+      (value
+        (number)))
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)
+            (escape)))))
+    (node_field
+      (value
+        (keyword
+          (boolean))))
+    (node_field
+      (value
+        (keyword
+          (boolean))))
+    (node_field
+      (value
+        (keyword)))))
 
 ============================
 Test True Prefix In Prop Key
@@ -1914,14 +1958,14 @@ node true_id=1
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number))))))
+        (value
+          (number))))))
 
 ==========================
 Test Semicolon After Child
@@ -1933,12 +1977,12 @@ node {
 
 ---
 
-    (document
+(document
+  (node
+    (identifier)
+    (node_children
       (node
-        (identifier)
-        (node_children
-          (node
-            (identifier)))))
+        (identifier)))))
 
 ==========================
 Test Slashdash Empty Child
@@ -1948,9 +1992,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ========================
 Test Underscore In Float
@@ -1960,13 +2004,13 @@ node 11.0
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal))))))
 
 ======================
 Test Underscore In Int
@@ -1976,12 +2020,12 @@ node 10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 =====================
 Test Quoted Prop Type
@@ -1991,19 +2035,19 @@ node key=("type/")#true
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier
-                  (string
-                    (string_fragment))))
-              (keyword
-                (boolean)))))))
+        (value
+          (type
+            (identifier
+              (string
+                (string_fragment))))
+          (keyword
+            (boolean)))))))
 
 ==================
 Test Commented Arg
@@ -2013,13 +2057,14 @@ node "arg2"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ====================
 Test Nested Children
@@ -2033,15 +2078,15 @@ node1 {
 
 ---
 
-    (document
+(document
+  (node
+    (identifier)
+    (node_children
       (node
         (identifier)
         (node_children
           (node
-            (identifier)
-            (node_children
-              (node
-                (identifier)))))))
+            (identifier)))))))
 
 ==============
 Test Node True
@@ -2051,13 +2096,13 @@ node #true
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (keyword
-              (boolean))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (keyword
+          (boolean))))))
 
 ==============================
 Test Slashdash Negative Number
@@ -2067,13 +2112,13 @@ node 2.0
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal))))))
 
 ===============
 Test Just Space
@@ -2083,7 +2128,7 @@ Test Just Space
 
 ---
 
-    (document)
+(document)
 
 ==============================
 Test Asterisk In Block Comment
@@ -2093,9 +2138,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ============
 Test Hex Int
@@ -2105,12 +2150,12 @@ node 207698809136909011942886895
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ==========================
 Test Newline Between Nodes
@@ -2121,11 +2166,11 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 ==========
 Test Emoji
@@ -2135,13 +2180,14 @@ node "😀"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ====================================
 Test Slashdash Arg After Newline Esc
@@ -2151,13 +2197,14 @@ node "arg2"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ==============================
 Test Only Line Comment Newline
@@ -2167,7 +2214,7 @@ Test Only Line Comment Newline
 
 ---
 
-    (document)
+(document)
 
 ===============
 Test String Arg
@@ -2177,13 +2224,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ===========================
 Test Arg And Prop Same Name
@@ -2193,19 +2241,21 @@ node "arg" arg="val"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (value
+        (value
+          (identifier
             (string
-              (string_fragment))))
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)))))))
+              (string_fragment))))))))
 
 =====================
 Test Multiline String
@@ -2215,18 +2265,19 @@ node " hey\neveryone\nhow goes?\n"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment)
-              (escape)
-              (string_fragment)
-              (escape)
-              (string_fragment)
-              (escape))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)
+            (escape)
+            (string_fragment)
+            (escape)
+            (string_fragment)
+            (escape)))))))
 
 =================
 Test Negative Int
@@ -2236,17 +2287,17 @@ node -10 prop=-15
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (value
-            (number)))
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number))))))
+        (value
+          (number))))))
 
 ======================
 Test Multiline Comment
@@ -2256,13 +2307,14 @@ node "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ==================
 Test Prop Hex Type
@@ -2272,16 +2324,16 @@ node key=(type)16
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (number))))))
+        (value
+          (type
+            (identifier))
+          (number))))))
 
 ===============
 Test Zero Float
@@ -2291,13 +2343,13 @@ node 0.0
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal))))))
 
 ========
 Test Hex
@@ -2307,12 +2359,12 @@ node 12379813812177893520
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ===========
 Test R Node
@@ -2322,13 +2374,14 @@ r "arg"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 =============
 Test Zero Arg
@@ -2338,12 +2391,12 @@ node 0
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 ========================
 Test Semicolon Separated
@@ -2354,11 +2407,11 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 ===============
 Test Bare Emoji
@@ -2368,13 +2421,14 @@ Test Bare Emoji
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ===========================
 Test Underscore In Fraction
@@ -2384,13 +2438,13 @@ node 1.02
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (decimal))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal))))))
 
 ====================
 Test Multiline Nodes
@@ -2400,17 +2454,19 @@ node "arg1" "arg2"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ==============================
 Test Slashdash Node With Child
@@ -2420,7 +2476,7 @@ Test Slashdash Node With Child
 
 ---
 
-    (document)
+(document)
 
 =================
 Test Arg Hex Type
@@ -2430,14 +2486,14 @@ node (type)16
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (number)))))
 
 ==================
 Test Trailing Crlf
@@ -2447,9 +2503,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ===================
 Test Prop Null Type
@@ -2459,16 +2515,16 @@ node key=(type)#null
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (keyword))))))
+        (value
+          (type
+            (identifier))
+          (keyword))))))
 
 ================
 Test String Prop
@@ -2478,15 +2534,16 @@ node prop="val"
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)))))))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 =======================
 Test Sci Notation Small
@@ -2496,16 +2553,16 @@ node prop=1.23E-1000
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number
-                (decimal)
-                (exponent)))))))
+        (value
+          (number
+            (decimal)
+            (exponent)))))))
 
 ========================
 Test No Decimal Exponent
@@ -2515,13 +2572,13 @@ node 1E+10
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number
-              (exponent))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (exponent))))))
 
 =================
 Test Raw Arg Type
@@ -2531,15 +2588,15 @@ node (type)#true
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (keyword
-              (boolean))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (keyword
+          (boolean))))))
 
 ==============
 Test Two Nodes
@@ -2550,11 +2607,11 @@ node2
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 ===========================
 Test True Prefix In Bare Id
@@ -2564,9 +2621,9 @@ true_id
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ============================
 Test False Prefix In Bare Id
@@ -2576,9 +2633,9 @@ false_id
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ===============================
 Test Escaped String Hash No Esc
@@ -2588,13 +2645,14 @@ node "#"
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string
-              (string_fragment))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string
+            (string_fragment)))))))
 
 ==================
 Test Raw Node Type
@@ -2604,11 +2662,11 @@ Test Raw Node Type
 
 ---
 
-    (document
-      (node
-        (type
-          (identifier))
-        (identifier)))
+(document
+  (node
+    (type
+      (identifier))
+    (identifier)))
 
 ==================
 Test Raw Node Name
@@ -2618,12 +2676,12 @@ Test Raw Node Name
 
 ---
 
-    (document
-      (node
-        (identifier
-          (string
-            (escape)
-            (string_fragment)))))
+(document
+  (node
+    (identifier
+      (string
+        (escape)
+        (string_fragment)))))
 
 ========================
 Test Hex Int Underscores
@@ -2633,12 +2691,12 @@ node 737894400291
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (number)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number)))))
 
 =======================
 Test Just Block Comment
@@ -2648,7 +2706,7 @@ Test Just Block Comment
 
 ---
 
-    (document)
+(document)
 
 ===================
 Test Arg Float Type
@@ -2658,15 +2716,15 @@ node (type)2.5
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (type
-              (identifier))
-            (number
-              (decimal))))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (type
+          (identifier))
+        (number
+          (decimal))))))
 
 =======================================
 Test Block Comment Before Node No Space
@@ -2676,9 +2734,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ====================
 Test Same Name Nodes
@@ -2689,11 +2747,11 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier))
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier))
+  (node
+    (identifier)))
 
 ===================
 Test Negative Float
@@ -2703,19 +2761,19 @@ node -1.0 key=-10.0
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (number
+          (decimal))))
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (value
-            (number
-              (decimal))))
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (number
-                (decimal)))))))
+        (value
+          (number
+            (decimal)))))))
 
 ====================
 Test Slashdash Child
@@ -2725,9 +2783,9 @@ node
 
 ---
 
-    (document
-      (node
-        (identifier)))
+(document
+  (node
+    (identifier)))
 
 ===================
 Test Prop True Type
@@ -2737,17 +2795,17 @@ node key=(type)#true
 
 ---
 
-    (document
-      (node
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (type
-                (identifier))
-              (keyword
-                (boolean)))))))
+        (value
+          (type
+            (identifier))
+          (keyword
+            (boolean)))))))
 
 ===============
 Test Just Child
@@ -2759,12 +2817,12 @@ node {
 
 ---
 
-    (document
+(document
+  (node
+    (identifier)
+    (node_children
       (node
-        (identifier)
-        (node_children
-          (node
-            (identifier)))))
+        (identifier)))))
 
 =====================================
 Test Empty Raw String Arg Single Hash
@@ -2774,12 +2832,13 @@ node #""#
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string))))))
 
 =====================================
 Test Empty Raw String Arg Many Hashes
@@ -2789,12 +2848,13 @@ node ####""####
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string))))))
 
 =================================================
 Test Empty Raw String Arg With Partial Terminator
@@ -2804,12 +2864,13 @@ node ####""###"####
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (value
-            (string)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (value
+        (identifier
+          (string))))))
 
 ============================
 Test KDL Version 1 Directive
@@ -2820,10 +2881,10 @@ node
 
 ---
 
-    (document
-      (version)
-      (node
-        (identifier)))
+(document
+  (version)
+  (node
+    (identifier)))
 
 ============================
 Test KDL Version 2 Directive
@@ -2834,10 +2895,11 @@ node
 
 ---
 
-    (document
-      (version)
-      (node
-        (identifier)))
+(document
+  (version)
+  (node
+    (identifier)))
+
 ===============================
 Test KDL Version With Properties
 ===============================
@@ -2847,16 +2909,17 @@ node key="value"
 
 ---
 
-    (document
-      (version)
-      (node
+(document
+  (version)
+  (node
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (value
-              (string
-                (string_fragment)))))))
+        (value
+          (identifier
+            (string
+              (string_fragment))))))))
 
 ============================
 Test empty string identifier in property
@@ -2866,14 +2929,15 @@ node ""=empty
 
 ---
 
-    (document
-      (node
-        (identifier)
-        (node_field
-          (prop
-            (identifier
-              (string))
-            (value)))))
+(document
+  (node
+    (identifier)
+    (node_field
+      (prop
+        (identifier
+          (string))
+        (value
+          (identifier))))))
 
 ============================
 Test property with comments around equals
@@ -2888,12 +2952,13 @@ node "" /**/ = /**/ ""
     (identifier)
     (node_field
       (prop
-        (identifier 
+        (identifier
           (string))
         (multi_line_comment)
+        (multi_line_comment)
         (value
-          (multi_line_comment)
-          (string))))))
+          (identifier
+            (string)))))))
 
 ============================
 Test complex type, prop and value with comments and esclines
@@ -2912,18 +2977,80 @@ tag  )\ // comment
 */    value
 
 ---
-    (document
-      (node
-        (type
-          (identifier))
-        (multi_line_comment)
+
+(document
+  (node
+    (type
+      (identifier))
+    (multi_line_comment)
+    (identifier)
+    (node_field
+      (prop
         (identifier)
-        (node_field
-          (prop
-            (identifier)
-            (multi_line_comment)
-            (value
-              (type
-                (identifier))
-              (single_line_comment)
-              (multi_line_comment))))))
+        (multi_line_comment)
+        (value
+          (type
+            (identifier))
+          (single_line_comment)
+          (multi_line_comment)
+          (identifier))))))
+
+============================
+Test Slashdash on Node only
+============================
+
+/- commented_node
+/- (type)typed_node
+normal_node
+
+---
+
+(document
+  (node
+    (slashdash)
+    (identifier))
+  (node
+    (slashdash)
+    (type
+      (identifier))
+    (identifier))
+  (node
+    (identifier)))
+
+============================
+Test Multiple Nodes with Slashdash
+============================
+
+/- node1
+node2
+/- node3; node4
+
+---
+
+(document
+  (node
+    (slashdash)
+    (identifier))
+  (node
+    (identifier))
+  (node
+    (slashdash)
+    (identifier))
+  (node
+    (identifier)))
+
+============================
+Test Slashdash with Comments and Extras
+============================
+
+/- /* comment */ (type)node
+
+---
+
+(document
+  (node
+    (slashdash)
+    (multi_line_comment)
+    (type
+      (identifier))
+    (identifier)))

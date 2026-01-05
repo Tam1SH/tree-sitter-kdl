@@ -1,10 +1,7 @@
-(document) @scope
-(node (node_children) @scope)
-(node_children (node) @scope)
+(document) @local.scope
 
-(identifier) @reference
+(node name: (identifier) @local.definition.var)
 
-(node_field) @definition.field
+(node_children) @local.scope
 
-(node (identifier) @definition.type)
-(type) @definition.type
+(prop key: (identifier) @local.definition.field)

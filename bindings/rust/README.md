@@ -8,8 +8,8 @@ way.)
 
 ```toml
 [dependencies]
-tree-sitter = "~0.20.10"
-tree-sitter-kdl = "1.1.0"
+tree-sitter = "~0.26.3"
+tree-sitter-kdl = "2.0.0"
 ```
 
 Typically, you will use the [language][language func] function to add this
@@ -25,7 +25,7 @@ contents {
 }
 "#;
 let mut parser = Parser::new();
-parser.set_language(tree_sitter_kdl::language()).expect("Error loading KDL grammar");
+parser.set_language(&tree_sitter_kdl::language()).expect("Error loading KDL grammar");
 let parsed = parser.parse(code, None);
 ```
 

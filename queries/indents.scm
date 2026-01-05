@@ -1,7 +1,8 @@
-(node (node_children) @indent)
+(node_children "{" @indent.begin)
+(node_children "}" @indent.end)
 
-"}" @indent_end
+[
+  (node)
+  (node_field)
+] @indent.align
 
-[ "{" "}" ] @branch
-
-[ "(" ")" ] @branch

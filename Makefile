@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-kdl
 HOMEPAGE_URL := https://github.com/amaanq/tree-sitter-kdl
-VERSION := 1.1.0
+VERSION := 2.0.0
 
 # repository
 SRC_DIR := src

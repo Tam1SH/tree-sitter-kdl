@@ -1,6 +1,6 @@
 /**
  * @file KDL grammar for tree-sitter
- * @author Amaan Qureshi <amaanq12@gmail.com> (Original)
+ * @author Amaan Qureshi <amaanq12@gmail.com>
  * @license MIT
  * @see {@link https://kdl.dev|official website}
  * @see {@link https://github.com/kdl-org/kdl/blob/main/SPEC.md|official syntax spec}
@@ -13,15 +13,30 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+/**
+ * KDL 2.0 Reserved Type Annotations
+ * @see {@link https://kdl.dev/spec/#name-type-annotation}
+ */
 const ANNOTATION_BUILTINS = [
-  'i8', 'i16', 'i32', 'i64', 'u8', 'u16', 'u32', 'u64',
-  'isize', 'usize', 'f32', 'f64', 'decimal64', 'decimal128',
-  'date-time', 'time', 'date', 'duration', 'decimal', 'currency',
-  'country-2', 'country-3', 'country-subdivision', 'email',
-  'idn-email', 'hostname', 'idn-hostname', 'ipv4', 'ipv6',
-  'url', 'url-reference', 'irl', 'iri-reference', 'url-template',
+  // 3.8.1. Numbers Without Decimals
+  'i8', 'i16', 'i32', 'i64', 'i128',
+  'u8', 'u16', 'u32', 'u64', 'u128',
+  'isize', 'usize',
+  // 3.8.2. Numbers With Decimals
+  'f32', 'f64', 'decimal64', 'decimal128',
+  // 3.8.3. Strings
+  'date-time', 'time', 'date', 'duration',
+  'decimal', 'currency',
+  'country-2', 'country-3', 'country-subdivision',
+  'email', 'idn-email',
+  'hostname', 'idn-hostname',
+  'ipv4', 'ipv6',
+  'url', 'url-reference',
+  'irl', 'irl-reference',
+  'url-template',
   'uuid', 'regex', 'base64',
 ];
+
 
 const UNICODE_SPACES_RANGE = '\u0009\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000';
 
@@ -41,18 +56,7 @@ const DOTTED_START = `[^${UNICODE_SPACES_RANGE}${NEWLINE_RANGE}${DISALLOWED_CHAR
 module.exports = grammar({
   name: 'kdl',
 
-  conflicts: $ => [
-    [$.document],
-    [$.document, $._ws],
-    [$.version, $._ws],
-    [$._node_space],
-    [$.node],
-    [$._base_node],
-    [$.node_children],
-    [$.identifier, $.value],
-    [$._node_space, $._linespace],
-    [$.value],
-  ],
+  conflicts: $ => [],
 
   externals: $ => [
     $._eof,
@@ -60,7 +64,12 @@ module.exports = grammar({
     $._raw_string,
   ],
 
-  extras: $ => [$.multi_line_comment],
+  extras: $ => [
+    $._unicode_space,
+    $._escline,
+    $.single_line_comment,
+    $.multi_line_comment,
+  ],
 
   word: $ => $._bare_identifier,
 
@@ -68,55 +77,75 @@ module.exports = grammar({
     // document := bom? version? nodes
     document: $ => seq(
       optional($._bom),
-      repeat($._linespace),
-      optional(seq(
-        $.version,
-        repeat($._linespace),
+      repeat(choice(
+        $._newline,
+        field('version', $.version),
+        field('node', $.node),
       )),
-      optional($._nodes),
-      repeat($._linespace),
     ),
-    // version := '/-' unicode-space* 'kdl-version' unicode-space+ ('1' | '2') unicode-space* newline
+
+    // KDL Version Marker
+    // Format: /- kdl-version "2"
     version: $ => seq(
       '/-',
-      repeat($._unicode_space),
       'kdl-version',
-      repeat1($._unicode_space),
-      choice('1', '2'),
-      repeat($._unicode_space),
+      field('value', choice('1', '2')),
       $._newline,
     ),
 
-    // base-node := slashdash? type? node-space* string (args/props)* children?
-    _base_node: $ => seq(
-      alias(optional(seq('/-', repeat($._node_space))), $.node_comment),
-      optional($.type),
-      repeat($._node_space),
-      $.identifier,
-      repeat(prec(1, seq(repeat1($._node_space), $.node_field))),
-      optional(prec(1, seq(
-        repeat1($._node_space),
-        field('children', $.node_children),
-      ))),
+    node_field: $ => seq(
+      optional(field('slashdash', $.slashdash)),
+      choice(
+        field('property', $.prop),
+        field('argument', $.value),
+      ),
     ),
 
-    // node := base-node node-terminator
+    // prop := string node-space* '=' node-space* value
+    prop: $ => seq(
+      field('key', $.identifier),
+      '=',
+      field('value', $.value),
+    ),
+
+    // value := type? (string | number | keyword)
+    value: $ => seq(
+      optional(field('type', $.type)),
+      field('value', choice(
+        $.identifier,
+        $.number,
+        $.keyword,
+      )),
+    ),
+
+    slashdash: _ => token('/-'),
+
     node: $ => seq(
-      repeat($._linespace),
-      $._base_node,
-      optional($._node_terminator),
+      $._node_internal,
+      $._node_terminator,
     ),
 
-    // nodes := (line-space* node)* line-space*
-    _nodes: $ => repeat1($.node),
+    _node_internal: $ => seq(
+      optional(field('slashdash', $.slashdash)),
+      optional(field('type', $.type)),
+      field('name', $.identifier),
+      repeat($.node_field),
+      repeat(seq(
+        optional(field('slashdash', $.slashdash)),
+        field('children', $.node_children),
+      )),
+    ),
+
 
     // node-children := slashdash? '{' nodes? '}'
     node_children: $ => seq(
-      optional(seq(alias('/-', $.node_children_comment), repeat($._node_space))),
       '{',
-      repeat($._linespace),
-      optional($._nodes),
-      repeat($._linespace),
+      repeat(
+        choice(
+          $.node,
+          $._newline,
+        )),
+      optional($._node_internal),
       '}',
     ),
 
@@ -130,12 +159,9 @@ module.exports = grammar({
     _node_terminator: $ => choice($.single_line_comment, $._newline, ';', $._eof),
 
     // identifier := string | bare-identifier
-    identifier: $ => choice(
-      $._bare_identifier,
-      $.string,
-    ),
+    identifier: $ => choice($.string, $._bare_identifier),
 
-    _bare_identifier: $ => token(prec(-1, choice(
+    _bare_identifier: $ => token(choice(
       // 1. unambiguous-ident
       seq(new RegExp(UNAMBIG_START), repeat(new RegExp(ID_CHAR))),
 
@@ -148,49 +174,28 @@ module.exports = grammar({
         '.',
         optional(seq(new RegExp(DOTTED_START), repeat(new RegExp(ID_CHAR)))),
       ),
-    ))),
+    )),
 
     // keyword := boolean | '#null' | keyword-number
-    keyword: $ => prec(10, choice(
+    keyword: $ => choice(
       $.boolean,
       token('#null'),
       token(/#(inf|-inf|nan)/),
-    )),
+    ),
 
     boolean: $ => choice('#true', '#false'),
 
     annotation_type: _ => choice(...ANNOTATION_BUILTINS),
 
-    // node-prop-or-arg := slashdash? (prop | value)
-    node_field: $ => choice($._node_field_comment, $._node_field),
-
-
     _node_field_comment: $ => alias(seq('/-', repeat($._node_space), $._node_field), $.node_field_comment),
 
     _node_field: $ => choice($.prop, $.value),
 
-    // prop := string node-space* '=' node-space* value
-    prop: $ => seq(
-      $.identifier,
-      repeat($._node_space), // node-space*
-      '=',
-      repeat($._node_space), // node-space*
-      $.value,
-    ),
-
-    // value := type? (string | number | keyword)
-    value: $ => seq(
-      optional($.type),
-      repeat($._node_space),
-      choice(choice($._bare_identifier, $.string), $.number, $.keyword),
-    ),
 
     // type := '(' string ')'
     type: $ => seq(
       '(',
-      repeat($._node_space),
-      choice($.identifier, $.annotation_type),
-      repeat($._node_space),
+      field('name', choice($.identifier, $.annotation_type)),
       ')',
     ),
 
@@ -204,8 +209,8 @@ module.exports = grammar({
     _quoted_string: $ => seq(
       '"',
       repeat(choice(
-        alias(token.immediate(prec(1, /[^\\"\n]+/)), $.string_fragment),
-        $.escape,
+        field('fragment', alias(token.immediate(prec(1, /[^\\"\n]+/)), $.string_fragment)),
+        field('escape', $.escape),
       )),
       '"',
     ),
@@ -215,9 +220,9 @@ module.exports = grammar({
       '"""',
       optional($._newline),
       repeat(choice(
-        alias(token.immediate(prec(1, /[^\\"]+/)), $.string_fragment),
-        $.escape,
-        alias(token.immediate('"'), $.string_fragment),
+        field('fragment', alias(token.immediate(prec(1, /[^\\"]+/)), $.string_fragment)),
+        field('escape', $.escape),
+        field('fragment', alias(token.immediate('"'), $.string_fragment)),
       )),
       '"""',
     ),
@@ -238,14 +243,14 @@ module.exports = grammar({
       $._binary,
     ),
 
-    _decimal: $ => prec(10, seq(
+    _decimal: $ => seq(
       /[+-]?[0-9][0-9_]*/,
       optional(seq(
         token.immediate('.'),
         alias(token.immediate(/[0-9][0-9_]*/), $.decimal),
       )),
       optional(alias(token.immediate(/[eE][+-]?[0-9][0-9_]*/), $.exponent)),
-    )),
+    ),
 
     exponent: $ => seq(
       token.immediate(/[eE]/),
@@ -254,12 +259,17 @@ module.exports = grammar({
     ),
 
 
-    _hex: $ => prec(10, /[+-]?0x[0-9a-fA-F][0-9a-fA-F_]*/),
-    _octal: $ => prec(10, /[+-]?0o[0-7][0-7_]*/),
-    _binary: $ => prec(10, /[+-]?0b[01][01_]*/),
+    _hex: $ => /[+-]?0x[0-9a-fA-F][0-9a-fA-F_]*/,
+    _octal: $ => /[+-]?0o[0-7][0-7_]*/,
+    _binary: $ => /[+-]?0b[01][01_]*/,
 
     // escline := '\' ws* (comment | newline | eof)
-    _escline: $ => seq('\\', repeat($._ws), choice($.single_line_comment, $._newline)),
+    _escline: $ => seq(
+      '\\',
+      repeat($._unicode_space),
+      optional($.single_line_comment),
+      $._newline,
+    ),
 
     // line-space := newline | ws | single-line-comment
     _linespace: $ => choice($._newline, $._ws, $.single_line_comment),
@@ -316,10 +326,9 @@ module.exports = grammar({
       /[\u0009\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000]/,
 
     // single-line-comment := '//' [^newline]*
-    single_line_comment: $ => seq(
+    single_line_comment: $ => token(seq(
       '//',
-      repeat(/[^\r\n\u0085\u000C\u2028\u2029]/),
-      choice($._newline, $._eof),
-    ),
+      /[^\r\n\u0085\u000C\u2028\u2029]*/,
+    )),
   },
 });

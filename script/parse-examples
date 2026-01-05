@@ -4,14 +4,12 @@ set -eu
 
 cd "$(dirname "$0")/.."
 
-# Функция для измерения времени выполнения команды
 function time_command {
     local start_time
     local end_time
     local duration
     
     start_time=$(date +%s.%N)
-    # Выполняем команду в подпроцессе, чтобы можно было убить её по таймауту
     if ! eval "$@" >/dev/null 2>&1; then
         end_time=$(date +%s.%N)
         duration=$(echo "$end_time - $start_time" | bc)
@@ -52,10 +50,8 @@ clone_repo kdl-org kdljs e093f8c490794ff9678463ae9e379100b73a95d4
 
 known_failures="$(cat script/known_failures.txt)"
 
-# Remove input directories
 find examples -type d -name input -exec rm -rf {} +
 
-# Получаем список всех файлов
 files_array=()
 while IFS= read -r -d $'\0' file; do
     files_array+=("$file")

@@ -1,52 +1,31 @@
-; Types
-
-(node (identifier) @type)
-
-(type) @type
-
+; --- Nodes ---
+(node name: (identifier) @tag)
+(type name: (_) @type)
 (annotation_type) @type.builtin
 
-; Properties
+; --- Properties & Arguments ---
+(prop key: (identifier) @property)
+(value value: (_) @variable.parameter)
 
-(prop (identifier) @property)
-
-; Variables
-
-(identifier) @variable
-
-
-; Literals
-
+; --- Literals ---
 (string) @string
-
+(string_fragment) @string
 (escape) @string.escape
-
 (number) @number
-
-(number (decimal) @float)
-(number (exponent) @float)
-
 (boolean) @boolean
+(keyword) @constant.builtin
 
-"#null" @constant.builtin
-
-; Punctuation
-
+; --- Punctuation ---
 ["{" "}"] @punctuation.bracket
-
 ["(" ")"] @punctuation.bracket
+"=" @operator
+";" @punctuation.delimiter
 
-[
-  ";"
-] @punctuation.delimiter
+; --- Comments & Slashdash ---
+(single_line_comment) @comment
+(multi_line_comment) @comment
 
-; Comments
+((node slashdash: (_)) @comment (#set! "priority" 105))
+((node_field slashdash: (_)) @comment (#set! "priority" 105))
 
-[
-  (single_line_comment)
-  (multi_line_comment)
-] @comment @spell
-
-(node (node_comment) (#set! "priority" 105)) @comment
-(node (node_field (node_field_comment) (#set! "priority" 105)) @comment)
-(node_children (node_children_comment) (#set! "priority" 105)) @comment
+(slashdash) @comment.special
